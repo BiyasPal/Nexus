@@ -1,0 +1,65 @@
+{
+    "listen": {
+        "http": 8080,
+        "https": 8443
+    },
+    "backends": {
+        "web": [
+            {
+                "url": "http://localhost:9001",
+                "weight": 1
+            },
+            {
+                "url": "http://localhost:9002",
+                "weight": 1
+            }
+        ]
+    },
+    "routes": [
+        {
+            "path": "/",
+            "backend": "web"
+        },
+        {
+            "path": "/api",
+            "backend": "web"
+        }
+    ],
+    "healthcheck": {
+        "path": "/health",
+        "intervalMs": 5000,
+        "unhealthyThreshold": 3,
+        "healthyThreshold": 2
+    },
+    "ratelimit": {
+        "windowMs": 60000,
+        "maxRequests": 100
+    },
+    "auth": {
+        "headerName": "X-API-Key",
+        "keys": [
+            "dev-key-123"
+        ],
+        "requiredByDefault": false
+    },
+    "tls": {
+        "certPath": "./certs/cert.pem",
+        "keyPath": "./certs/key.pem"
+    },
+    "logging": {
+        "level": "info",
+        "format": "combined"
+    },
+    "wal": {
+        "enabled": true,
+        "path": "./data/wal",
+        "flushIntervalMs": 1000,
+        "maxFileSizeBytes": 10485760,
+        "retainFiles": 5
+    },
+    "dashboard": {
+        "enabled": true,
+        "path": "/nexus/dashboard",
+        "pushIntervalMs": 2000
+    }
+}
