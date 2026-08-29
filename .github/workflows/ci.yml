@@ -3,6 +3,7 @@ name: CI - test on PR to devmode
 on:
   pull_request:
     branches:
+      - main
       - devmode
   workflow_dispatch:   # lets you trigger manually to sanity-check the pipeline
 
