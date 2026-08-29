@@ -12,8 +12,6 @@ Example: `- [x] security/tls.js → test/security/tls.test.js` — done by Ashis
 |---|---|---|---|---|
 | 1 | `config.js` | `test/config.test.js` | **Saikat** | [ ] |
 | 2 | `security/tls.js` | `test/security/tls.test.js` | **Ashish** | [X], Aug 29, 2026 |
-| 1 | `config.js` | `test/config.test.js` | **Saikat** | [X] |
-| 2 | `security/tls.js` | `test/security/tls.test.js` | **Ashish** | [X] |
 | 3 | `observability/logger.js` | `test/observability/logger.test.js` | **Saikat** | [ ] |
 | 4 | `observability/metrics.js` | `test/observability/metrics.test.js` | **Saikat** | [ ] |
 | 5 | `routing/router.js` | `test/routing/router.test.js` | **Kanchan** | [ ] |
@@ -22,10 +20,6 @@ Example: `- [x] security/tls.js → test/security/tls.test.js` — done by Ashis
 | 8 | `reliability/wal.js` | `test/reliability/wal.test.js` | **Ashish** | [X], Aug 29, 2026 |
 | 9 | `security/ratelimiter.js` | `test/security/ratelimiter.test.js` | **Ashish** | [X], Aug 29, 2026 |
 | 10 | `security/auth.js` | `test/security/auth.test.js` | **Ashish** | [X], Aug 29, 2026 |
-| 7 | `reliability/healthcheck.js` | `test/reliability/healthcheck.test.js` | **Ashish** | [X] |
-| 8 | `reliability/wal.js` | `test/reliability/wal.test.js` | **Ashish** | [X] |
-| 9 | `security/ratelimiter.js` | `test/security/ratelimiter.test.js` | **Ashish** | [X] |
-| 10 | `security/auth.js` | `test/security/auth.test.js` | **Ashish** | [X] |
 | 11 | `observability/dashboard.js` | `test/observability/dashboard.test.js` | **Biyas** | [ ] |
 | 12 | `core/pipeline.js` | `test/core/pipeline.test.js` *(integration — mock/stub #2–11)* | **Kanchan** | [ ] |
 | 13 | `core/server.js` | `test/core/server.test.js` *(real server, hit via `http.request`)* | **Kanchan** | [ ] |
