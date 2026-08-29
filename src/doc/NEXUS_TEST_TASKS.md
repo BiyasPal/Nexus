@@ -17,7 +17,7 @@ Example: `- [x] security/tls.js → test/security/tls.test.js` — done by Ashis
 | 5 | `routing/router.js` | `test/routing/router.test.js` | **Kanchan** | [ ] |
 | 6 | `routing/loadbalancer.js` | `test/routing/loadbalancer.test.js` | **Kanchan** | [ ] |
 | 7 | `reliability/healthcheck.js` | `test/reliability/healthcheck.test.js` | **Ashish** | [X] |
-| 8 | `reliability/wal.js` | `test/reliability/wal.test.js` | **Ashish** | [ ] |
+| 8 | `reliability/wal.js` | `test/reliability/wal.test.js` | **Ashish** | [X] |
 | 9 | `security/ratelimiter.js` | `test/security/ratelimiter.test.js` | **Ashish** | [ ] |
 | 10 | `security/auth.js` | `test/security/auth.test.js` | **Ashish** | [ ] |
 | 11 | `observability/dashboard.js` | `test/observability/dashboard.test.js` | **Biyas** | [ ] |
