@@ -10,7 +10,7 @@ Example: `- [x] security/tls.js → test/security/tls.test.js` — done by Ashis
 
 | # | Source file | Test file | Assigned to | Done |
 |---|---|---|---|---|
-| 1 | `config.js` | `test/config.test.js` | **Saikat** | [ ] |
+| 1 | `config.js` | `test/config.test.js` | **Saikat** | [X] |
 | 2 | `security/tls.js` | `test/security/tls.test.js` | **Ashish** | [X], Aug 29, 2026 |
 | 1 | `config.js` | `test/config.test.js` | **Saikat** | [X] |
 | 2 | `security/tls.js` | `test/security/tls.test.js` | **Ashish** | [X] |
