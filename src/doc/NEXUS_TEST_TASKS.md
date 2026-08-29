@@ -12,8 +12,6 @@ Example: `- [x] security/tls.js → test/security/tls.test.js` — done by Ashis
 |---|---|---|---|---|
 | 1 | `config.js` | `test/config.test.js` | **Saikat** | [ ] |
 | 2 | `security/tls.js` | `test/security/tls.test.js` | **Ashish** | [X], Aug 29, 2026 |
-| 1 | `config.js` | `test/config.test.js` | **Saikat** | [X] |
-| 2 | `security/tls.js` | `test/security/tls.test.js` | **Ashish** | [X] |
 | 3 | `observability/logger.js` | `test/observability/logger.test.js` | **Saikat** | [ ] |
 | 4 | `observability/metrics.js` | `test/observability/metrics.test.js` | **Saikat** | [ ] |
 | 5 | `routing/router.js` | `test/routing/router.test.js` | **Kanchan** | [X] |
