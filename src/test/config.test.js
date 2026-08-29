@@ -1,4 +1,4 @@
-import test from 'node:test';
+import test, { describe } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -24,99 +24,107 @@ function writeTempConfig(contents) {
     return file;
 }
 
-test('DEFAULT_CONFIG_PATH points at ./nexus.config.json', () => {
-    assert.equal(DEFAULT_CONFIG_PATH, './nexus.config.json');
-});
-
-test('validateConfig accepts a minimal valid config', () => {
-    const config = validateConfig(validRaw());
-    assert.equal(config.listen.http, 8080);
-    assert.deepEqual(config.routes, [{ path: '/', backend: 'web' }]);
-});
-
-test('validateConfig fills in defaults for every optional section', () => {
-    const config = validateConfig(validRaw());
-
-    assert.deepEqual(config.healthcheck, {
-        path: '/health',
-        intervalMs: 5000,
-        unhealthyThreshold: 3,
-        healthyThreshold: 2
+describe('config constants', () => {
+    test('DEFAULT_CONFIG_PATH points at ./nexus.config.json', () => {
+        assert.equal(DEFAULT_CONFIG_PATH, './nexus.config.json');
     });
-    assert.deepEqual(config.ratelimit, { windowMs: 60000, maxRequests: 100, burst: 0 });
-    assert.equal(config.auth.headerName, 'X-API-Key');
-    assert.equal(config.tls.certPath, './certs/cert.pem');
-    assert.equal(config.logging.level, 'info');
-    assert.equal(config.wal.retainFiles, 5);
-    assert.equal(config.dashboard.pushIntervalMs, 2000);
 });
 
-test('validateConfig merges partial optional sections instead of replacing them', () => {
-    const config = validateConfig(
-        validRaw({ healthcheck: { intervalMs: 9999 } })
-    );
+describe('validateConfig - accepting valid input', () => {
+    test('accepts a minimal valid config', () => {
+        const config = validateConfig(validRaw());
+        assert.equal(config.listen.http, 8080);
+        assert.deepEqual(config.routes, [{ path: '/', backend: 'web' }]);
+    });
 
-    assert.equal(config.healthcheck.intervalMs, 9999);
-    assert.equal(config.healthcheck.path, '/health');
-    assert.equal(config.healthcheck.unhealthyThreshold, 3);
+    test('fills in defaults for every optional section', () => {
+        const config = validateConfig(validRaw());
+
+        assert.deepEqual(config.healthcheck, {
+            path: '/health',
+            intervalMs: 5000,
+            unhealthyThreshold: 3,
+            healthyThreshold: 2
+        });
+        assert.deepEqual(config.ratelimit, { windowMs: 60000, maxRequests: 100, burst: 0 });
+        assert.equal(config.auth.headerName, 'X-API-Key');
+        assert.equal(config.tls.certPath, './certs/cert.pem');
+        assert.equal(config.logging.level, 'info');
+        assert.equal(config.wal.retainFiles, 5);
+        assert.equal(config.dashboard.pushIntervalMs, 2000);
+    });
+
+    test('merges partial optional sections instead of replacing them', () => {
+        const config = validateConfig(
+            validRaw({ healthcheck: { intervalMs: 9999 } })
+        );
+
+        assert.equal(config.healthcheck.intervalMs, 9999);
+        assert.equal(config.healthcheck.path, '/health');
+        assert.equal(config.healthcheck.unhealthyThreshold, 3);
+    });
 });
 
-test('validateConfig rejects a config missing a required top-level key', () => {
-    const raw = validRaw();
-    delete raw.backends;
+describe('validateConfig - rejecting invalid input', () => {
+    test('rejects a config missing a required top-level key', () => {
+        const raw = validRaw();
+        delete raw.backends;
 
-    assert.throws(() => validateConfig(raw), /missing required key "backends"/);
+        assert.throws(() => validateConfig(raw), /missing required key "backends"/);
+    });
+
+    test('rejects listen with neither http nor https', () => {
+        assert.throws(
+            () => validateConfig(validRaw({ listen: {} })),
+            /must define an "http" and\/or "https" port/
+        );
+    });
+
+    test('rejects an empty backend pool', () => {
+        assert.throws(
+            () => validateConfig(validRaw({ backends: { web: [] } })),
+            /must be a non-empty array/
+        );
+    });
+
+    test('rejects a backend entry missing a url', () => {
+        assert.throws(
+            () => validateConfig(validRaw({ backends: { web: [{ weight: 1 }] } })),
+            /missing "url"/
+        );
+    });
+
+    test('rejects a route pointing at an unknown backend', () => {
+        assert.throws(
+            () => validateConfig(validRaw({ routes: [{ path: '/', backend: 'ghost' }] })),
+            /references unknown backend "ghost"/
+        );
+    });
+
+    test('rejects a non-object root', () => {
+        assert.throws(() => validateConfig(null), /root must be a JSON object/);
+        assert.throws(() => validateConfig('nope'), /root must be a JSON object/);
+    });
 });
 
-test('validateConfig rejects listen with neither http nor https', () => {
-    assert.throws(
-        () => validateConfig(validRaw({ listen: {} })),
-        /must define an "http" and\/or "https" port/
-    );
-});
+describe('loadConfig', () => {
+    test('reads, parses, and validates a real file from disk', () => {
+        const file = writeTempConfig(JSON.stringify(validRaw()));
+        const config = loadConfig(file);
+        assert.equal(config.listen.http, 8080);
+        fs.rmSync(path.dirname(file), { recursive: true, force: true });
+    });
 
-test('validateConfig rejects an empty backend pool', () => {
-    assert.throws(
-        () => validateConfig(validRaw({ backends: { web: [] } })),
-        /must be a non-empty array/
-    );
-});
+    test('fails fast with a clear message on a missing file', () => {
+        assert.throws(
+            () => loadConfig('./does-not-exist.json'),
+            /Config file not found: \.\/does-not-exist\.json/
+        );
+    });
 
-test('validateConfig rejects a backend entry missing a url', () => {
-    assert.throws(
-        () => validateConfig(validRaw({ backends: { web: [{ weight: 1 }] } })),
-        /missing "url"/
-    );
-});
-
-test('validateConfig rejects a route pointing at an unknown backend', () => {
-    assert.throws(
-        () => validateConfig(validRaw({ routes: [{ path: '/', backend: 'ghost' }] })),
-        /references unknown backend "ghost"/
-    );
-});
-
-test('validateConfig rejects a non-object root', () => {
-    assert.throws(() => validateConfig(null), /root must be a JSON object/);
-    assert.throws(() => validateConfig('nope'), /root must be a JSON object/);
-});
-
-test('loadConfig reads, parses, and validates a real file from disk', () => {
-    const file = writeTempConfig(JSON.stringify(validRaw()));
-    const config = loadConfig(file);
-    assert.equal(config.listen.http, 8080);
-    fs.rmSync(path.dirname(file), { recursive: true, force: true });
-});
-
-test('loadConfig fails fast with a clear message on a missing file', () => {
-    assert.throws(
-        () => loadConfig('./does-not-exist.json'),
-        /Config file not found: \.\/does-not-exist\.json/
-    );
-});
-
-test('loadConfig fails fast with a clear message on invalid JSON', () => {
-    const file = writeTempConfig('{ not valid json');
-    assert.throws(() => loadConfig(file), /Invalid JSON in config file/);
-    fs.rmSync(path.dirname(file), { recursive: true, force: true });
+    test('fails fast with a clear message on invalid JSON', () => {
+        const file = writeTempConfig('{ not valid json');
+        assert.throws(() => loadConfig(file), /Invalid JSON in config file/);
+        fs.rmSync(path.dirname(file), { recursive: true, force: true });
+    });
 });
