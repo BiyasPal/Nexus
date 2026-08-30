@@ -1,7 +1,9 @@
 # Nexus — Test Writing Task Distribution
 
 **Team:** Kanchan, Ashish, Saikat, Biyas
+
 **Rule:** When you finish a task, change `[ ]` to `[x]` and add your name + date next to it.
+
 Example: `- [x] security/tls.js → test/security/tls.test.js` — done by Ashish (Aug 21)
 
 ---
@@ -12,17 +14,17 @@ Example: `- [x] security/tls.js → test/security/tls.test.js` — done by Ashis
 |---|---|---|---|---|
 | 1 | `config.js` | `test/config.test.js` | **Saikat** | [X] |
 | 2 | `security/tls.js` | `test/security/tls.test.js` | **Ashish** | [X], Aug 29, 2026 |
-| 3 | `observability/logger.js` | `test/observability/logger.test.js` | **Saikat** | [X] |
-| 4 | `observability/metrics.js` | `test/observability/metrics.test.js` | **Saikat** | [X] |
-| 5 | `routing/router.js` | `test/routing/router.test.js` | **Kanchan** | [X] |
-| 6 | `routing/loadbalancer.js` | `test/routing/loadbalancer.test.js` | **Kanchan** | [X] |
-| 7 | `reliability/healthcheck.js` | `test/reliability/healthcheck.test.js` | **Ashish** | [X] |
-| 8 | `reliability/wal.js` | `test/reliability/wal.test.js` | **Ashish** | [X] |
-| 9 | `security/ratelimiter.js` | `test/security/ratelimiter.test.js` | **Ashish** | [X] |
-| 10 | `security/auth.js` | `test/security/auth.test.js` | **Ashish** | [X] |
-| 11 | `observability/dashboard.js` | `test/observability/dashboard.test.js` | **Kanchan** | [X] |
-| 12 | `core/pipeline.js` | `test/core/pipeline.test.js` *(integration — mock/stub #2–11)* | **Kanchan** | [X] |
-| 13 | `core/server.js` | `test/core/server.test.js` *(real server, hit via `http.request`)* | **Kanchan** | [X] |
+| 3 | `observability/logger.js` | `test/observability/logger.test.js` | **Saikat** | [ ] |
+| 4 | `observability/metrics.js` | `test/observability/metrics.test.js` | **Saikat** | [ ] |
+| 5 | `routing/router.js` | `test/routing/router.test.js` | **Kanchan** | [ ] |
+| 6 | `routing/loadbalancer.js` | `test/routing/loadbalancer.test.js` | **Kanchan** | [ ] |
+| 7 | `reliability/healthcheck.js` | `test/reliability/healthcheck.test.js` | **Ashish** | [X], Aug 29, 2026 |
+| 8 | `reliability/wal.js` | `test/reliability/wal.test.js` | **Ashish** | [X], Aug 29, 2026 |
+| 9 | `security/ratelimiter.js` | `test/security/ratelimiter.test.js` | **Ashish** | [X], Aug 29, 2026 |
+| 10 | `security/auth.js` | `test/security/auth.test.js` | **Ashish** | [X], Aug 29, 2026 |
+| 11 | `observability/dashboard.js` | `test/observability/dashboard.test.js` | **Biyas** | [ ] |
+| 12 | `core/pipeline.js` | `test/core/pipeline.test.js` *(integration — mock/stub #2–11)* | **Kanchan** | [ ] |
+| 13 | `core/server.js` | `test/core/server.test.js` *(real server, hit via `http.request`)* | **Kanchan** | [ ] |
 | 14 | `cli.js` | `test/cli.test.js` *(argv parsing, config load path)* | **Saikat** | [ ] |
 | 15 | `examples/backend-echo.js` | *skip — throwaway demo fixture, just confirm it runs* | **Biyas** | [ ] |
 | 16 | `scripts/start.js` | *skip — orchestrator script, one-time smoke test* | **Biyas** | [ ] |
@@ -31,6 +33,7 @@ Example: `- [x] security/tls.js → test/security/tls.test.js` — done by Ashis
 **How to mark done:** flip `[ ]` to `[x]` in both the row's Done column, e.g. `| [x] Ashish (Aug 21) |`.
 
 **Notes on order:**
+
 - Items 1–11 are independent modules — can be done in parallel, any order within that block.
 - Item 12 (`pipeline.js`) needs 2–11 at least stubbed out — don't start early.
 - Item 13 (`server.js`) needs router + pipeline stable — do after 12.
