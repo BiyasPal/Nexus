@@ -57,7 +57,7 @@ export async function main(argv, deps = {}) {
     shutdownServer,
     logger = console,
     exit = process.exit,
-    onSignal = process.on
+    onSignal = process.on.bind(process)
   } = deps;
 
   let options;
