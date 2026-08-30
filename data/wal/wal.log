@@ -1,0 +1,6 @@
+{"type":"start","requestId":"cec6cab4-7105-47c2-90d1-c017b5190715","ts":1788083584726,"method":"GET","path":"/","backend":"http://localhost:9001"}
+{"type":"finish","requestId":"cec6cab4-7105-47c2-90d1-c017b5190715","ts":1788083584728,"status":200}
+{"type":"start","requestId":"5c4c28df-3b0d-4e5e-8e55-a66cfa2384e3","ts":1788083596540,"method":"GET","path":"/api","backend":"http://localhost:9002"}
+{"type":"finish","requestId":"5c4c28df-3b0d-4e5e-8e55-a66cfa2384e3","ts":1788083596541,"status":200}
+{"type":"start","requestId":"869e15f0-a948-47d4-916a-9f740d16d144","ts":1788083604799,"method":"GET","path":"/no-such-path","backend":"http://localhost:9001"}
+{"type":"finish","requestId":"869e15f0-a948-47d4-916a-9f740d16d144","ts":1788083604800,"status":200}
