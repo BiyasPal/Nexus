@@ -44,7 +44,7 @@ function localBackendPorts(config) {
     return [...ports];
 }
 
-function spawnBackend(port) {
+function spawnBackend(port){
     const child = spawn(process.execPath, [BACKEND_SCRIPT, String(port)], {
         cwd: ROOT,
         stdio: 'inherit'
