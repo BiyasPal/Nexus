@@ -20,7 +20,7 @@ Example: `- [x] security/tls.js → test/security/tls.test.js` — done by Ashis
 | 8 | `reliability/wal.js` | `test/reliability/wal.test.js` | **Ashish** | [X] |
 | 9 | `security/ratelimiter.js` | `test/security/ratelimiter.test.js` | **Ashish** | [X] |
 | 10 | `security/auth.js` | `test/security/auth.test.js` | **Ashish** | [X] |
-| 11 | `observability/dashboard.js` | `test/observability/dashboard.test.js` | **Kanchan** | [ ] |
+| 11 | `observability/dashboard.js` | `test/observability/dashboard.test.js` | **Kanchan** | [X] |
 | 12 | `core/pipeline.js` | `test/core/pipeline.test.js` *(integration — mock/stub #2–11)* | **Kanchan** | [X] |
 | 13 | `core/server.js` | `test/core/server.test.js` *(real server, hit via `http.request`)* | **Kanchan** | [ ] |
 | 14 | `cli.js` | `test/cli.test.js` *(argv parsing, config load path)* | **Saikat** | [ ] |
